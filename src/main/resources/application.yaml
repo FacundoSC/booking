@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: reserva-cancha
+
+server:
+  port: 8080
+
+jwt:
+  secret: change-me-please
+  expiration-ms: 3600000

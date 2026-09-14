@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout/base :: body">
+  <div>
+    <h2 th:text="'Bienvenido, ' + ${username}">Bienvenido</h2>
+
+    <h4>Reservar nueva hora</h4>
+    <form method="post" action="/reservas/crear" class="row g-2">
+      <div class="col-md-3">
+        <label class="form-label">Cancha</label>
+        <select name="facilityId" class="form-select">
+          <option th:each="f: ${facilities}" th:value="${f.id}" th:text="${f.name}"></option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Fecha</label>
+        <input type="date" name="date" class="form-control" required />
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Inicio</label>
+        <input type="time" name="start" class="form-control" value="08:00" required />
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Fin</label>
+        <input type="time" name="end" class="form-control" value="09:00" required />
+      </div>
+      <div class="col-md-2 align-self-end">
+        <button class="btn btn-success" type="submit">Reservar</button>
+      </div>
+    </form>
+
+    <h4 class="mt-4">Mis reservas</h4>
+    <table class="table">
+      <thead><tr><th>Cancha</th><th>Fecha</th><th>Inicio</th><th>Fin</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr th:each="b: ${bookings}">
+          <td th:text="${#lists.find(facilities, f -> f.id == b.facilityId)?.name}">Cancha</td>
+          <td th:text="${b.date}">2026-01-01</td>
+          <td th:text="${b.startTime}">08:00</td>
+          <td th:text="${b.endTime}">09:00</td>
+          <td th:text="${b.status}">PENDIENTE</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</html>

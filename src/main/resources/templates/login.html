@@ -1,0 +1,19 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout/base :: body">
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <h2>Login</h2>
+      <form method="post" action="/login">
+        <div class="mb-3">
+          <label class="form-label">Usuario</label>
+          <input name="username" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Contraseña</label>
+          <input name="password" type="password" class="form-control" required />
+        </div>
+        <button class="btn btn-primary" type="submit">Ingresar</button>
+      </form>
+    </div>
+  </div>
+</html>
