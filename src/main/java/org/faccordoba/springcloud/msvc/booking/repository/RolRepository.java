@@ -1,6 +1,6 @@
-package org.faccordoba.springcloud.msvc.reservacancha.repository;
+package org.faccordoba.springcloud.msvc.booking.repository;
 
-import org.faccordoba.springcloud.msvc.reservacancha.domain.Rol;
+import org.faccordoba.springcloud.msvc.booking.domain.Rol;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

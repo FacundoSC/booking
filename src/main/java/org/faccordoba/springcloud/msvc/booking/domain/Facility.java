@@ -1,4 +1,4 @@
-package org.faccordoba.springcloud.msvc.reservacancha.domain;
+package org.faccordoba.springcloud.msvc.booking.domain;
 
 public class Facility {
     private Long id;

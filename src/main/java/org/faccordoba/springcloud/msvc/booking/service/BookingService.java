@@ -1,7 +1,7 @@
-package org.faccordoba.springcloud.msvc.reservacancha.service;
+package org.faccordoba.springcloud.msvc.booking.service;
 
-import org.faccordoba.springcloud.msvc.reservacancha.domain.Booking;
-import org.faccordoba.springcloud.msvc.reservacancha.domain.BookingStatus;
+import org.faccordoba.springcloud.msvc.booking.domain.Booking;
+import org.faccordoba.springcloud.msvc.booking.domain.BookingStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

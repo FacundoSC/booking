@@ -1,7 +1,7 @@
-package org.faccordoba.springcloud.msvc.reservacancha.controller.mvc;
+package org.faccordoba.springcloud.msvc.booking.controller.mvc;
 
-import org.faccordoba.springcloud.msvc.reservacancha.service.BookingService;
-import org.faccordoba.springcloud.msvc.reservacancha.service.FacilityService;
+import org.faccordoba.springcloud.msvc.booking.service.BookingService;
+import org.faccordoba.springcloud.msvc.booking.service.FacilityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

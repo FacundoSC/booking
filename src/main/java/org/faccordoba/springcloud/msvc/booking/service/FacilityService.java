@@ -1,6 +1,6 @@
-package org.faccordoba.springcloud.msvc.reservacancha.service;
+package org.faccordoba.springcloud.msvc.booking.service;
 
-import org.faccordoba.springcloud.msvc.reservacancha.domain.Facility;
+import org.faccordoba.springcloud.msvc.booking.domain.Facility;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;

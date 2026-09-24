@@ -1,4 +1,4 @@
-package org.faccordoba.springcloud.msvc.reservacancha.domain;
+package org.faccordoba.springcloud.msvc.booking.domain;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
