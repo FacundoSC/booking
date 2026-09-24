@@ -1,0 +1,49 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/base :: header('Registrate')}">
+    <!-- Reemplaza el head completo y pasa el título personalizado -->
+</head>
+<body>
+
+<!-- Inserta la barra de navegación común -->
+<nav th:replace="~{layout/base :: nav}"></nav>
+
+
+<!-- Inserta el contenedor del body pasando el fragmento local con el contenido específico -->
+<div th:replace="~{layout/base :: body(content=~{::#main-content})}">
+    <div id="main-content" class="row justify-content-center">
+        <!--Create Html registration form -->
+        <div class="col-4">
+            <h2>Register</h2>
+            <div th:if="${param.success}" class="alert alert-success" th:text="${param.success}"></div>
+            <div th:if="${param.error}" class="alert alert-danger" th:text="${param.error}"></div>
+            <form th:method="post" th:action="@{/register}" th:object="${user}">
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input name="firstName" class="form-control" required  th:field="*{firstName}"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Apellido</label>
+                    <input name="lastName" class="form-control" required th:field="*{lastName}" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input name="email" type="email" class="form-control" required th:field="*{email}" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Contraseña</label>
+                    <input name="password" type="password" class="form-control" required th:field="*{password}"/>
+                </div>
+                <button class="btn btn-primary" type="submit">Registrate</button>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+<footer th:replace="~{layout/base :: footer}"></footer>
+</body>
+
+
+</html>

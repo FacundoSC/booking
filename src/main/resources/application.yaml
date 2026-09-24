@@ -1,10 +1,29 @@
-spring:
-  application:
-    name: reserva-cancha
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug   # Habilita el nivel de debug para el componente que genera el SQL
+        orm:
+          result:
+            mapping: trace   # Opcional: Muestra los valores de los parámetros vinculados (bind parameters) en los logs
+
 
 server:
-  port: 8080
-
-jwt:
-  secret: change-me-please
-  expiration-ms: 3600000
+  port: ${SERVER_PORT:8082} # Permite configurar el puerto a través de la variable de entorno SERVER_PORT, con un valor predeterminado de 8082
+spring:
+  application:
+    name: booking
+  datasource:
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    url:   ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/booking}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin}
+  jpa:
+    database: POSTGRESQL
+    database-platform: ${SPRING_JPA_DATABASE_PLATFORM:org.hibernate.dialect.PostgreSQLDialect}
+    hibernate:
+      ddl-auto: update
+    show-sql: true # Muestra las sentencias SQL ejecutadas
+    properties:
+      hibernate:
+        format_sql: true   # Formatea el código SQL para que sea legible en la consola

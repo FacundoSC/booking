@@ -1,7 +1,15 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="layout/base :: body">
-  <div>
-    <h1>Inmuebles Deportivos</h1>
+<html xmlns:th="http://thymeleaf.org" >
+<head th:replace="~{layout/base :: header('index')}">
+</head>
+<body>
+<!-- Inserta la barra de navegación común -->
+<nav th:replace="~{layout/base :: nav}"></nav>
+
+<!-- CORRECCIÓN CLAVE: Se invoca pasando la variable explícita 'content' -->
+<div th:replace="~{layout/base :: body(content=~{::#main-content})}">
+  <div id="main-content">
+    <h1>Espacios Deportivos</h1>
     <div class="row">
       <div class="col-4" th:each="f: ${facilities}">
         <div class="card mb-3">
@@ -14,4 +22,7 @@
       </div>
     </div>
   </div>
+</div>
+<footer th:replace="~{layout/base :: footer}"></footer>
+</body>
 </html>

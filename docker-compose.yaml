@@ -1,0 +1,40 @@
+services:
+  booking:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: booking:latest
+    ports:
+      - "8083:8083"
+    environment:
+      SERVER_PORT: "8083"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://booking-postgres:5432/booking"
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+    depends_on:
+      - postgres
+    networks:
+        - booking-net
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: booking-postgres
+    environment:
+      POSTGRES_DB: booking
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+        - booking-net
+
+networks:
+  booking-net:
+    driver: bridge
+
+volumes:
+  postgres_data:
