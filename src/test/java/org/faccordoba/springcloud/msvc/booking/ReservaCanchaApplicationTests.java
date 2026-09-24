@@ -1,10 +1,10 @@
-package org.faccordoba.springcloud.msvc.reservacancha;
+package org.faccordoba.springcloud.msvc.booking;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ReservaCanchaApplicationTests {
+class BookingApplicationTests {
 
     @Test
     void contextLoads() {

@@ -1,4 +1,4 @@
-package org.faccordoba.springcloud.msvc.reservacancha;
+package org.faccordoba.springcloud.msvc.booking;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

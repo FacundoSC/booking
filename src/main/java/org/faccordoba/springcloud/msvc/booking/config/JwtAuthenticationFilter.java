@@ -1,6 +1,5 @@
-package org.faccordoba.springcloud.msvc.reservacancha.config;
+package org.faccordoba.springcloud.msvc.booking.config;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.FilterChain;
@@ -11,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtils jwtUtils;
@@ -32,10 +30,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
+
+       /*
         if (token != null && jwtUtils.validateToken(token)) {
             String username = jwtUtils.getUsernameFromToken(token);
             request.setAttribute("username", username);
-        }
+        }*/
 
         filterChain.doFilter(request, response);
     }

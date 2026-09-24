@@ -10,7 +10,7 @@ public class Booking {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
-    private BookingStatus status = BookingStatus.PENDIENTE;
+    private BookingStatus status = BookingStatus.PENDING;
 
     public Booking() {}
 

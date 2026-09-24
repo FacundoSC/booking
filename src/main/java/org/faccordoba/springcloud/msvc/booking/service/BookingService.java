@@ -24,7 +24,7 @@ public class BookingService {
             }
         }
         Booking nb = new Booking(nextId.getAndIncrement(), facilityId, username, date, start, end);
-        nb.setStatus(BookingStatus.PENDIENTE);
+        nb.setStatus(BookingStatus.PENDING);
         bookings.add(nb);
         return nb;
     }
