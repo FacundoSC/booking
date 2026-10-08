@@ -1,0 +1,128 @@
+version: '3.8'
+
+services:
+  # ==========================================
+  # Microservicios - API
+  # ==========================================
+  viajes-api:
+    container_name: viajes-api
+    image: faccordoba/msvc-viajes-viajes-api
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/viajesdb
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - app-net
+
+  tarifas-api:
+    container_name: tarifas-api
+    image: faccordoba/msvc-viajes-tarifas-api
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/tarifasdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - APP_VIAJES_URL=http://viajes-api:8080/api/viajes
+    depends_on:
+      - postgres
+    networks:
+      - app-net
+
+  gateway-server:
+    container_name: gateway-server
+    image: faccordoba/msvc-viajes-gateway-server
+    ports:
+      - "9000:9000"
+    depends_on:
+      - viajes-api
+      - tarifas-api
+      - booking
+    networks:
+      - app-net
+
+  # ==========================================
+  # Aplicación Web MVC - Booking
+  # ==========================================
+  booking:
+    container_name: booking-mvc
+    image: faccordoba/booking:latest
+    ports:
+      - "8083:8083"
+    environment:
+      SERVER_PORT: "8083"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://booking-postgres:5432/booking"
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+    depends_on:
+      - booking-postgres
+    networks:
+      - app-net
+
+  # ==========================================
+  # Bases de Datos & Servicios
+  # ==========================================
+  mongo:
+    container_name: mongo
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app-net
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-net
+
+  postgres:
+    container_name: postgres
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=tarifasdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-net
+
+  booking-postgres:
+    container_name: booking-postgres
+    image: postgres:15-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=booking
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - booking_postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  redis_data:
+  postgres_data:
+  booking_postgres_data:
