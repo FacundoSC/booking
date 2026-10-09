@@ -1,19 +1,44 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="layout/base :: body">
-  <div class="row justify-content-center">
-    <div class="col-4">
-      <h2>Login</h2>
-      <form method="post" action="/login">
-        <div class="mb-3">
-          <label class="form-label">Usuario</label>
-          <input name="username" class="form-control" required />
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/base :: header('Iniciar Sesión')}">
+  <!-- Reemplaza el head completo y pasa el título personalizado -->
+</head>
+
+<body>
+<!-- Inserta la barra de navegación común -->
+<nav th:replace="~{layout/base :: nav}"></nav>
+
+<!-- Inserta el contenedor del body pasando el fragmento local con el contenido específico -->
+<div th:replace="~{layout/base :: body(content=~{::#main-content})}">
+    <div id="main-content" class="row justify-content-center">
+      <div class="col-4">
+        <h2>Login</h2>
+        <!-- Display error message if login fails -->
+        <div th:if="${param.error}" class="alert alert-danger" th:text="${param.error}"></div>
+        <!-- Display logout message if user logs out -->
+        <div th:if="${param.logout}" class="alert alert-info" th:text="${param.logout}"></div>
+
+        <form method="post" th:action="@{/login}">
+          <div class="mb-3">
+            <label class="form-label" for="email">Email</label>
+            <input id="email" name="username" class="form-control" placeholder="Ingresa tu email" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="password">Contraseña</label>
+            <input id="password" name="password" type="password" class="form-control" placeholder="Ingresa tu contraseña" required />
+          </div>
+          <button class="btn btn-primary" type="submit">Ingresar</button>
+        </form>
+        <div class="form-group">
+          <span>No tienes una cuenta? <a  th:href="@{/register}">Regístrate aquí</a></span>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Contraseña</label>
-          <input name="password" type="password" class="form-control" required />
-        </div>
-        <button class="btn btn-primary" type="submit">Ingresar</button>
-      </form>
+      </div>
     </div>
   </div>
+
+
+<footer th:replace="~{layout/base :: footer}"></footer>
+
+</body>
 </html>

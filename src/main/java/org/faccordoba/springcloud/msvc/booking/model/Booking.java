@@ -1,11 +1,18 @@
-package org.faccordoba.springcloud.msvc.booking.domain;
+package org.faccordoba.springcloud.msvc.booking.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Entity
+@Table(name = "bookings")
 public class Booking {
+    @Id
     private Long id;
-    private Long facilityId;
+    private Integer facilityId;
     private String username;
     private LocalDate date;
     private LocalTime startTime;
@@ -14,7 +21,7 @@ public class Booking {
 
     public Booking() {}
 
-    public Booking(Long id, Long facilityId, String username, LocalDate date, LocalTime startTime, LocalTime endTime) {
+    public Booking(Long id, Integer facilityId, String username, LocalDate date, LocalTime startTime, LocalTime endTime) {
         this.id = id;
         this.facilityId = facilityId;
         this.username = username;
@@ -25,8 +32,8 @@ public class Booking {
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-    public Long getFacilityId() { return facilityId; }
-    public void setFacilityId(Long facilityId) { this.facilityId = facilityId; }
+    public Integer getFacilityId() { return facilityId; }
+    public void setFacilityId(Integer facilityId) { this.facilityId = facilityId; }
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
     public LocalDate getDate() { return date; }

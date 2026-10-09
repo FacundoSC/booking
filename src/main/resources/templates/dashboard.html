@@ -1,27 +1,41 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="layout/base :: body">
-  <div>
-    <h2 th:text="'Bienvenido, ' + ${username}">Bienvenido</h2>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:replace="~{layout/base :: header('Dashboard - Reserva Canchas')}">
+  <!-- Reemplaza el head completo y pasa el título personalizado -->
+</head>
+<body>
+<!-- Inserta la barra de navegación común -->
+<nav th:replace="~{layout/base :: nav}"></nav>
+
+<!-- Inserta el contenedor del body pasando el fragmento local con el contenido específico -->
+<div th:replace="~{layout/base :: body(content=~{::#main-content})}">
+  <div id="main-content">
+   Bienvenido, <span th:text="${username}">User</span>
 
     <h4>Reservar nueva hora</h4>
-    <form method="post" action="/reservas/crear" class="row g-2">
+    <form th:method="post" th:action="@{/reservas/crear}" class="row g-2">
       <div class="col-md-3">
-        <label class="form-label">Cancha</label>
-        <select name="facilityId" class="form-select">
-          <option th:each="f: ${facilities}" th:value="${f.id}" th:text="${f.name}"></option>
-        </select>
+        <label class="form-label" for="facilityId">Cancha</label>
+          <select name="facilityId" class="form-select" id="facilityId">
+            <option th:each="f : ${facilities}"
+                    th:value="${f.key}"
+                    th:text="${f.value}">
+              Nombre de la Cancha
+            </option>
+          </select>
       </div>
       <div class="col-md-2">
-        <label class="form-label">Fecha</label>
-        <input type="date" name="date" class="form-control" required />
+        <label class="form-label" for="date">Fecha</label>
+        <input type="date" name="date" class="form-control" id="date" required />
       </div>
       <div class="col-md-2">
-        <label class="form-label">Inicio</label>
-        <input type="time" name="start" class="form-control" value="08:00" required />
+        <label class="form-label" for="start">Inicio</label>
+        <input type="time" name="start" class="form-control" id="start" value="08:00" required />
       </div>
       <div class="col-md-2">
-        <label class="form-label">Fin</label>
-        <input type="time" name="end" class="form-control" value="09:00" required />
+        <label class="form-label" for="end">Fin</label>
+        <input type="time" name="end" class="form-control" id="end" value="09:00" required />
       </div>
       <div class="col-md-2 align-self-end">
         <button class="btn btn-success" type="submit">Reservar</button>
@@ -32,14 +46,18 @@
     <table class="table">
       <thead><tr><th>Cancha</th><th>Fecha</th><th>Inicio</th><th>Fin</th><th>Estado</th></tr></thead>
       <tbody>
-        <tr th:each="b: ${bookings}">
-          <td th:text="${#lists.find(facilities, f -> f.id == b.facilityId)?.name}">Cancha</td>
-          <td th:text="${b.date}">2026-01-01</td>
-          <td th:text="${b.startTime}">08:00</td>
-          <td th:text="${b.endTime}">09:00</td>
-          <td th:text="${b.status}">PENDIENTE</td>
-        </tr>
+      <tr th:each="b: ${bookings}">
+        <td th:text="${facilities[b.facilityId]}">Cancha</td>
+        <td th:text="${b.date}">2026-01-01</td>
+        <td th:text="${b.startTime}">08:00</td>
+        <td th:text="${b.endTime}">09:00</td>
+        <td th:text="${b.status}">PENDIENTE</td>
+      </tr>
       </tbody>
     </table>
   </div>
+</div>
+
+<footer th:replace="~{layout/base :: footer}"></footer>
+</body>
 </html>

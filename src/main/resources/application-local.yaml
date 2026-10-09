@@ -1,0 +1,28 @@
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug   # Habilita el nivel de debug para el componente que genera el SQL
+        orm:
+          result:
+            mapping: trace   # Opcional: Muestra los valores de los parámetros vinculados (bind parameters) en los logs
+
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: booking
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true # Muestra las sentencias SQL ejecutadas
+    properties:
+      hibernate:
+        format_sql: true   # Formatea el código SQL para que sea legible en la consola
+
